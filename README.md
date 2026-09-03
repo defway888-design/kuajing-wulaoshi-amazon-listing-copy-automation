@@ -20,15 +20,27 @@
 
 ## 安装（适用于各类 Agent）
 
+### 一键复制安装口令
+
+在所使用的 Agent 对话中复制并发送以下口令：
+
+```text
+请从以下 GitHub 仓库安装跨境吴老师亚马逊商品页面文字内容自动化编写Skill
+https://github.com/defway888-design/kuajing-wulaoshi-amazon-listing-copy-automation
+```
+
+支持 GitHub Skill 安装或导入的 Agent 会按自身机制完成拉取、安装或提示所需授权。不要在对话中提供卖家精灵密钥。
+
+### 其他接入方式
+
 本仓库是可移植的目录式 Skill 包；不依赖固定的本机路径。请始终保留完整的 `kuajing-wulaoshi-amazon-new-listing-copy` 文件夹及其内部目录结构。
 
 | Agent 能力 | 安装或接入方式 |
 | --- | --- |
-| 支持本地 Skill、Rules 或 Agent Skills | 在 Agent 的设置、工作区或项目中，将整个 Skill 文件夹添加为本地 Skill／规则目录；具体目录和导入按钮以该 Agent 的官方说明为准。 |
-| 支持从 GitHub 安装或导入 | 在该 Agent 的扩展、Skill 或项目导入入口中使用本仓库地址：`https://github.com/defway888-design/kuajing-wulaoshi-amazon-listing-copy-automation`。 |
+| 支持本地 Skill、Rules 或 Agent Skills | 下载或克隆本仓库后，在 Agent 的设置、工作区或项目中，将整个 Skill 文件夹添加为本地 Skill／规则目录；具体目录和导入按钮以该 Agent 的官方说明为准。 |
 | 不支持原生 Skill 安装 | 将 `SKILL.md` 与 `references/` 文件夹作为项目上下文或附件提供给 Agent，并让 Agent 按 `SKILL.md` 执行；运行环境仍须能连接卖家精灵 MCP。 |
 
-完成导入后，按所用 Agent 的机制重新加载项目、工作区或 Skill 清单。若该 Agent 需要显式授权 MCP 连接，请在运行前完成授权；不要向 Agent 对话提供卖家精灵密钥。
+完成导入后，按所用 Agent 的机制重新加载项目、工作区或 Skill 清单。若该 Agent 需要显式授权 MCP 连接，请在运行前完成授权。
 
 ## 启动示例
 
@@ -58,6 +70,10 @@ Skill 会先核验卖家精灵 MCP 配置；通过后按四阶段执行。所有
 - `scripts/check_listing_limits.py`：标题、商品亮点和 ST 限制校验。
 
 ## 版本更新说明
+
+### v1.0.3 · 2026-09-03
+
+- 新增可直接发送给 Agent 的 GitHub 安装口令，使用完整的 Skill 名称与公开仓库地址。
 
 ### v1.0.2 · 2026-09-03
 
