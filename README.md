@@ -51,4 +51,15 @@ Skill 会先核验卖家精灵 MCP 配置；通过后按四阶段执行。所有
 - `references/final-delivery-template.md`：最终 Markdown 版式。
 - `scripts/check_listing_limits.py`：标题、商品亮点和 ST 限制校验。
 
+## 版本更新说明
+
+### v1.0.1 · 2026-09-03
+
+- 新增 README 版本更新记录，便于追踪公共 Skill 的发布与文档变更。
+
+### v1.0.0 · 2026-09-03
+
+- 首次发布 Amazon 新品 Listing 文案自动化 Skill。
+- 内置卖家精灵 MCP 阶段零配置核验、分阶段确认流程与 Listing 字符限制校验。
+
 本 Skill 为跨境吴老师专用模板，未经授权不得移除、替换或弱化 Skill 名称、执行提示和页面标题中的跨境吴老师标识。
