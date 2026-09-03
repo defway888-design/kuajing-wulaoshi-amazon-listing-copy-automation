@@ -10,7 +10,7 @@
 
 ## 运行前提
 
-运行前必须在当前 Codex 环境配置并启用卖家精灵 MCP。Skill 会在阶段零检查并唯一绑定以下能力：
+运行前必须在实际执行本 Skill 的 Agent 环境中配置并启用卖家精灵 MCP。Skill 会在阶段零检查并唯一绑定以下能力：
 
 - `asin_detail`
 - `review`
@@ -18,15 +18,21 @@
 
 任一能力未配置、未暴露、归属不明确或鉴权失败时，Skill 会停止并提示完成配置；不会使用其他数据源替代，也不会要求提供密钥。
 
-## 安装
+## 安装（适用于各类 Agent）
 
-1. 在本仓库页面点击 **Code → Download ZIP**，或使用 Git 克隆仓库。
-2. 将整个 `kuajing-wulaoshi-amazon-new-listing-copy` 文件夹复制到本机 Codex 的 Skills 目录，例如 `$CODEX_HOME/skills` 或 `~/.codex/skills`。
-3. 重启 Codex，使新 Skill 被重新发现。
+本仓库是可移植的目录式 Skill 包；不依赖固定的本机路径。请始终保留完整的 `kuajing-wulaoshi-amazon-new-listing-copy` 文件夹及其内部目录结构。
+
+| Agent 能力 | 安装或接入方式 |
+| --- | --- |
+| 支持本地 Skill、Rules 或 Agent Skills | 在 Agent 的设置、工作区或项目中，将整个 Skill 文件夹添加为本地 Skill／规则目录；具体目录和导入按钮以该 Agent 的官方说明为准。 |
+| 支持从 GitHub 安装或导入 | 在该 Agent 的扩展、Skill 或项目导入入口中使用本仓库地址：`https://github.com/defway888-design/kuajing-wulaoshi-amazon-listing-copy-automation`。 |
+| 不支持原生 Skill 安装 | 将 `SKILL.md` 与 `references/` 文件夹作为项目上下文或附件提供给 Agent，并让 Agent 按 `SKILL.md` 执行；运行环境仍须能连接卖家精灵 MCP。 |
+
+完成导入后，按所用 Agent 的机制重新加载项目、工作区或 Skill 清单。若该 Agent 需要显式授权 MCP 连接，请在运行前完成授权；不要向 Agent 对话提供卖家精灵密钥。
 
 ## 启动示例
 
-在 Codex 中输入：
+在已加载本 Skill 的 Agent 对话中输入：
 
 ```text
 使用 $kuajing-wulaoshi-amazon-new-listing-copy，根据参考竞品 ASIN 生成并分阶段确认 Amazon 新品 Listing 文案。
@@ -52,6 +58,10 @@ Skill 会先核验卖家精灵 MCP 配置；通过后按四阶段执行。所有
 - `scripts/check_listing_limits.py`：标题、商品亮点和 ST 限制校验。
 
 ## 版本更新说明
+
+### v1.0.2 · 2026-09-03
+
+- 将安装说明改为面向各类 Agent 的通用导入方式，不再绑定单一 Agent 的路径或操作。
 
 ### v1.0.1 · 2026-09-03
 
