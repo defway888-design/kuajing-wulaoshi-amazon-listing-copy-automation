@@ -11,7 +11,7 @@
 - 需要逐步确认新品事实、5 个卖点、五点、标题、商品亮点和 ST。
 - 需要检查字符数、UTF-8 bytes、核心品类词根排名、词密度和英文可读性。
 
-## 运行前提
+## 运行前准备
 
 运行前必须在实际执行本 Skill 的 Agent 环境中配置并启用卖家精灵 MCP。Skill 会首先检查并唯一绑定：
 
@@ -23,36 +23,21 @@
 
 卖家精灵数据库导引类 Skill 仅为可选辅助。即使当前 Agent 没有安装此类辅助 Skill，也可以直接根据卖家精灵 MCP 的工具说明、schema 和实际响应运行。
 
-## 安装（适用于各类 Agent）
+## 首次安装
 
-### 一键复制安装口令
+本仓库为**公开仓库**，无需提交 GitHub 用户名或接受私有仓库邀请；不要在对话中提供密码或访问令牌。
 
-将以下口令复制到支持从 GitHub 安装或导入 Skill 的 Agent 对话中：
+点击下方代码块的复制按钮，将整段指令发送给支持 GitHub 导入的 AI/Agent：
 
 ```text
-请从以下 GitHub 仓库安装跨境吴老师亚马逊商品页面文字内容自动化编写Skill
-https://github.com/defway888-design/kuajing-wulaoshi-amazon-listing-copy-automation
+请从 https://github.com/defway888-design/kuajing-wulaoshi-amazon-listing-copy-automation 安装跨境吴老师 Amazon 新品 Listing 文案 Skill。
 ```
 
-支持 GitHub Skill 安装或导入的 Agent 会按自身机制完成拉取、安装或提示所需授权。不支持自动安装时，使用下方手动接入方式。不要在对话中提交卖家精灵密钥、GitHub 密码或访问令牌。
+若当前平台不支持原生 Skill 安装，可按平台支持的项目规则、知识库或文件上下文方式导入完整仓库；`SKILL.md` 是主规则，`references/` 中的必读文件须一并可读。工具连接与安装位置使用执行者自己的环境，不使用作者电脑路径。
 
-### 其他接入方式
+安装后按当前平台提示刷新或重新加载 Skill；只有当前客户端未识别新 Skill 时才重启。
 
-本仓库是可移植的目录式 Skill 包，不依赖作者机器的固定路径。请保留完整目录结构。
-
-| Agent 能力 | 安装或接入方式 |
-| --- | --- |
-| 支持从 GitHub 安装或导入 Skill | 直接发送上方安装口令，并按该 Agent 的授权提示完成导入。 |
-| 支持本地 Skill、Rules 或 Agent Skills | 下载或克隆本仓库，在 Agent 的设置、工作区或项目中导入完整 Skill 文件夹。具体目录和按钮以该 Agent 的官方说明为准。 |
-| 不支持原生 Skill 安装 | 将完整 Skill 文件夹作为项目上下文或附件提供给 Agent，并要求其先读取 `SKILL.md`。若平台不能上传文件夹，至少提供 `SKILL.md` 和 `references/` 中的全部文件。 |
-
-`scripts/check_listing_limits.py` 是不依赖第三方包的可选校验脚本。没有 Python 时，Agent 可以使用其他可复核方法完成相同计数。
-
-`agents/openai.yaml` 只用于支持该元数据格式的 OpenAI/Codex 界面展示，不参与业务逻辑。其他 Agent 可以忽略该文件。
-
-完成导入后，按所用 Agent 的机制重新加载项目、工作区或 Skill 清单；运行前完成卖家精灵 MCP 授权。
-
-## 通用启动口令
+## 启动方式
 
 ```text
 请使用已加载的“跨境吴老师 Amazon 新品 Listing 文案 Skill”，根据参考竞品 ASIN 生成并分阶段确认 Amazon 新品 Listing 文案。
@@ -68,7 +53,9 @@ https://github.com/defway888-design/kuajing-wulaoshi-amazon-listing-copy-automat
 
 主品类词由阶段一归纳后提供 3 个候选，最终以用户确认或输入为准。主品类词确认后，Skill 再提示输入新品事实、规格和本次目标变体。
 
-## 执行流程
+## 执行结果与失败边界
+
+### 执行流程
 
 1. 阶段零：检查卖家精灵 MCP 配置和三项必需能力。
 2. 阶段一：全量分页获取可用竞品评论和流量关键词，分析竞品并确认主品类词。
@@ -79,7 +66,7 @@ https://github.com/defway888-design/kuajing-wulaoshi-amazon-listing-copy-automat
 
 前一阶段未确认时，Skill 不会提前生成后一阶段内容。数据缺失或规则冲突时，暂停信息会首先说明具体原因。
 
-## 关键交付规则
+### 关键交付规则
 
 - 五点固定 5 条，每条最多 200 个 Unicode 字符。
 - 可按空格可靠分词的语言，标题前段必须正好包含 5 个计数关键词，并完整包含品牌和主品类词；第 5 个计数关键词后使用精确的 ` - `。
@@ -96,7 +83,7 @@ https://github.com/defway888-design/kuajing-wulaoshi-amazon-listing-copy-automat
 
 这些长度和标题结构是本 Skill 的默认内部规则，不代表 Amazon 所有站点、类目和账号的官方通用政策。用户明确提供并确认的实际后台限制可以覆盖对应字段。
 
-## 最终结果
+### 最终结果
 
 全部页面文字确认后，Skill 会在当前可写位置或用户指定位置生成一个 UTF-8 Markdown 文件，默认命名：
 
@@ -114,7 +101,13 @@ Amazon_New_Listing_Final_<marketplace>_<YYYYMMDD_HHMMSS>.md
 
 最终文件不包含未选中的标题或商品亮点候选，也不包含原始竞品 ASIN 清单、逐竞品数据账本、原始评论或原始关键词清单。
 
-## 关键文件
+## 使用边界与安全
+
+- 不要把密码、Token、API Key、个人连接配置或真实客户数据提交到本仓库；数据连接使用运行者自己的环境。
+
+本 Skill 为跨境吴老师专用模板，未经授权不得移除、替换或弱化 Skill 名称、执行提示和页面标题中的“跨境吴老师”标识。
+
+## 仓库文件
 
 - `SKILL.md`：Skill 入口、状态机和强制判断。
 - `references/sellersprite-mcp-configuration-gate.md`：卖家精灵 MCP 运行前门槛。
@@ -123,11 +116,9 @@ Amazon_New_Listing_Final_<marketplace>_<YYYYMMDD_HHMMSS>.md
 - `scripts/check_listing_limits.py`：五点、标题、商品亮点和 ST 的确定性限制校验。
 - `agents/openai.yaml`：可选的 OpenAI/Codex 界面元数据。
 
-## 品牌说明
+## 版本更新记录
 
-本 Skill 为跨境吴老师专用模板，未经授权不得移除、替换或弱化 Skill 名称、执行提示和页面标题中的“跨境吴老师”标识。
-
-## 版本更新说明
+> 文档修订（2026-09-25，北京时间）：README 按跨境吴老师统一板式调整；仅改变用户说明，业务规则与现有功能版本未变。
 
 ### v1.1.0 · 2026-09-08
 
