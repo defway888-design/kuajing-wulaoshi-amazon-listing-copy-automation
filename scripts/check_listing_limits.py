@@ -176,6 +176,13 @@ def main() -> int:
         errors.append("highlight must be one line.")
     if highlight.rstrip().endswith((".", "。")):
         errors.append("highlight cannot end with a full stop.")
+    forbidden_highlight_dividers = ("|", "｜", ";", "；", "，", "、", " / ", " — ", " – ", " - ")
+    if any(divider in highlight for divider in forbidden_highlight_dividers):
+        errors.append("highlight must use only ASCII comma plus one space (', ') between phrases; alternative dividers are forbidden.")
+    if "," in highlight:
+        phrases = highlight.split(", ")
+        if len(phrases) < 2 or any(not phrase or phrase != phrase.strip() or "," in phrase for phrase in phrases):
+            errors.append("highlight commas must separate non-empty phrases using exactly ', ', with no leading or trailing comma.")
 
     if st_bytes > limits["st_max_bytes"]:
         errors.append(
@@ -219,7 +226,7 @@ def main() -> int:
             "characters": bullet_chars,
             "maximum_each": limits["bullet_max"],
         },
-        "highlight": {"characters": highlight_chars, "maximum": limits["highlight_max"]},
+        "highlight": {"characters": highlight_chars, "maximum": limits["highlight_max"], "phrase_divider": ", "},
         "search_terms": {"utf8_bytes": st_bytes, "maximum": limits["st_max_bytes"]},
         "repeated_exact_tokens": repeated_tokens,
         "manual_checks_required": [
