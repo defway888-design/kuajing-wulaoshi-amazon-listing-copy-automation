@@ -24,7 +24,7 @@ DEFAULT_LIMITS = {
 
 
 def load_payload(source: str) -> dict[str, Any]:
-    raw = sys.stdin.read() if source == "-" else Path(source).read_text(encoding="utf-8")
+    raw = sys.stdin.buffer.read().decode("utf-8") if source == "-" else Path(source).read_text(encoding="utf-8")
     value = json.loads(raw)
     if not isinstance(value, dict):
         raise ValueError("JSON root must be an object.")
@@ -151,6 +151,21 @@ def main() -> int:
             )
         if index <= len(bullets) and ("\n" in bullets[index - 1] or "\r" in bullets[index - 1]):
             errors.append(f"bullets[{index}] must be one line.")
+        if index <= len(bullets):
+            summary, divider, body = bullets[index - 1].partition(": ")
+            if (
+                not divider
+                or not summary.strip()
+                or summary != summary.rstrip()
+                or "—" in summary
+                or not body
+                or body[0].isspace()
+                or not body.strip()
+            ):
+                errors.append(
+                    f"bullets[{index}] must have a non-empty summary and body "
+                    "separated by an ASCII colon and one space (': ')."
+                )
 
     if highlight_chars > limits["highlight_max"]:
         errors.append(
@@ -208,8 +223,12 @@ def main() -> int:
         "search_terms": {"utf8_bytes": st_bytes, "maximum": limits["st_max_bytes"]},
         "repeated_exact_tokens": repeated_tokens,
         "manual_checks_required": [
-            "five-counted-keyword title prefix and brand/category inclusion",
+            "five-counted-keyword title prefix where applicable, and brand/category inclusion",
+            "competitor-title frequency priority, skip reasons, and confirmed-fact fit",
+            "eligible audience in bullet 4 and eligible use scenario in bullet 5",
+            "bullet summaries genuinely centered on their assigned themes",
             "trusted-root deduplication",
+            "ST keyword source, relevance, and separation from unconfirmed front-page facts",
             "highlight semantic non-repetition with title",
             "keyword frequency, density, stopwords, morphology, and Flesch readability",
         ],
